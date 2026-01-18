@@ -516,7 +516,7 @@ ui <- navbarPage(
           hr(),  
           h4("Augmented Synergy Advisor for RA Muscles (ASA-M)"),  
           p(style = "font-size: 16px; line-height: 1.6;",  
-            "The ASA-M system is an advanced machine learning-based tool designed specifically for patients with rheumatoid arthritis. It assesses the risk of developing low muscle mass by analyzing routinely available blood-based and clinical indicators. This application employs a CatBoost model trained on comprehensive clinical data to provide accurate and interpretable predictions of low muscle mass risk."),  
+            "The ASA-M system is an advanced machine learning-based tool designed specifically for patients with rheumatoid arthritis. It assesses the risk of developing low muscle mass by analyzing routinely available blood-based and clinical indicators. This application employs a CatBoost model trained on comprehensive blood and clinical data to provide accurate and interpretable predictions of low muscle mass risk."),  
           h4(icon("cogs"), "Technical Specifications"),  
           tags$ul(  
             tags$li("Model: Gradient Boosting (CatBoost) with SHAP interpretability"),  

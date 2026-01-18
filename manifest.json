@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "locale": "zh_CN",
+  "platform": "4.4.3",
+  "metadata": {
+    "appmode": "shiny",
+    "primary_rmd": null,
+    "primary_html": null,
+    "content_category": null,
+    "has_parameters": false
+  },
+  "environment": {
+    "r": {
+      "requires": "~=4.4.0"
+    }
+  },
+  "packages": {
+    "renv": {
+      "Source": "CRAN",
+      "Repository": "https://mirrors.pku.edu.cn/CRAN",
+      "description": {
+        "Package": "renv",
+        "Type": "Package",
+        "Title": "Project Environments",
+        "Version": "1.1.6",
+        "Authors@R": "c(\n    person(\"Kevin\", \"Ushey\", role = c(\"aut\", \"cre\"), email = \"kevin@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-2880-7407\")),\n    person(\"Hadley\", \"Wickham\", role = c(\"aut\"), email = \"hadley@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
+        "Description": "A dependency management toolkit for R. Using 'renv', you can create\n    and manage project-local R libraries, save the state of these libraries to\n    a 'lockfile', and later restore your library as required. Together, these\n    tools can help make your projects more isolated, portable, and reproducible.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://rstudio.github.io/renv/, https://github.com/rstudio/renv",
+        "BugReports": "https://github.com/rstudio/renv/issues",
+        "Imports": "utils",
+        "Suggests": "BiocManager, cli, compiler, covr, cpp11, curl, devtools,\ngenerics, gitcreds, jsonlite, jsonvalidate, knitr, miniUI,\nmodules, packrat, pak, R6, remotes, reticulate, rmarkdown,\nrstudioapi, shiny, testthat, uuid, waldo, yaml, webfakes",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "true",
+        "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-01-15 18:14:37 UTC; kevin",
+        "Author": "Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-01-16 13:40:02 UTC",
+        "Built": "R 4.4.3; ; 2026-01-17 00:43:20 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "renv",
+        "RemoteRef": "renv",
+        "RemoteRepos": "https://mirrors.pku.edu.cn/CRAN",
+        "RemoteSha": "1.1.6"
+      }
+    }
+  },
+  "files": {
+    ".RData": {
+      "checksum": "2564cd3524a80b35f44ed432303fb6eb"
+    },
+    ".Rprofile": {
+      "checksum": "eb2e18da63bd1276e92cf4755531219c"
+    },
+    "app.R": {
+      "checksum": "b10bd62859e7a4703eabc6f4b8e92ad7"
+    },
+    "bmr_scores.xlsx": {
+      "checksum": "150ae763036b453fc3f74dc6f76f6954"
+    },
+    "data_model.xlsx": {
+      "checksum": "17fbc7a54b65ba47d18a7e9744f23de3"
+    },
+    "model seletion.R": {
+      "checksum": "27b706e4373451596c762d959cf054b9"
+    },
+    "model.R": {
+      "checksum": "7aeeffb2546bcacf69f0758b0ff6c474"
+    },
+    "models/background_data.rds": {
+      "checksum": "91f7fd27a95240711ba101e21dbcff18"
+    },
+    "models/best_params.json": {
+      "checksum": "4be61ed2f8927eba6d80f94c7be8c65e"
+    },
+    "models/catboost_muscle_model.rds": {
+      "checksum": "2216a019c2f20e62e992580788ca46fd"
+    },
+    "models/feature_cols.rds": {
+      "checksum": "251513b225e5e07e1369e0233e775874"
+    },
+    "models/target_levels.rds": {
+      "checksum": "6668ca2509bfc72ae9929c57521777a5"
+    },
+    "models/test_data.rds": {
+      "checksum": "bc960a3f1b8203538ae85eb1cd6a2a59"
+    },
+    "models/threshold_asset.rds": {
+      "checksum": "898d414165b23e4626e6e1f72184941c"
+    },
+    "models/train_data.rds": {
+      "checksum": "91f7fd27a95240711ba101e21dbcff18"
+    },
+    "renv.lock": {
+      "checksum": "57e4929d9c35c397dc95e1d7c6c3e001"
+    },
+    "requirement.R": {
+      "checksum": "50d68bc0464b6b65b16e98e0bf38f068"
+    },
+    "validation set.xlsx": {
+      "checksum": "bbc61f398389486607f596573aa91879"
+    }
+  },
+  "users": null
+}
