@@ -17,7 +17,6 @@ PROJECT_ROOT <- normalizePath(getwd())
 MODEL_DIR <- file.path(PROJECT_ROOT, "models")
 
 # Key Drivers Computation Function
-# CHANGED: No change in algorithm; keep original SHAP/permshap logic but ensure feature names match new inputs.
 compute_key_drivers <- function(learner, X_new, bg_X, feature_cols, target_levels) {
   n <- nrow(X_new)
   empty_drivers <- data.table(
@@ -37,7 +36,6 @@ compute_key_drivers <- function(learner, X_new, bg_X, feature_cols, target_level
     )
     
     ps_result <- shapviz(ps)
-    # keep using the 'Low' class; ensure target_levels contains 'Low'
     sv_pos <- ps_result[["Low"]]
     shap_mat <- as.matrix(sv_pos$S)
     
@@ -89,7 +87,6 @@ compute_key_drivers <- function(learner, X_new, bg_X, feature_cols, target_level
 }
 
 # UI Interface
-# CHANGED: Replace input fields to the new variables: ANC, ALT, AST, Gender, Age, BMI
 ui <- navbarPage(
   title = div(
     tags$img(src = "https://cdn-icons-png.flaticon.com/512/2919/2919600.png",
@@ -398,7 +395,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # CHANGED: single prediction mapping updated to new input variables
   predict_single_patient <- function(params) {
     tryCatch({
       gender_processed <- ifelse(params$Gender %in% c("female", "f", "女", "woman", "2"), "2", "1")
@@ -459,7 +455,6 @@ server <- function(input, output, session) {
     })
   }
   
-  # CHANGED: batch prediction expects new required columns
   predict_batch_patients <- function(data, include_drivers = TRUE) {
     tryCatch({
       required_cols <- c("ANC","ALT","AST","Gender","Age","BMI")
@@ -516,7 +511,7 @@ server <- function(input, output, session) {
         target = "Muscle",
         positive = "Low"
       )
-      
+      task_batch$select(model_components()$feature_cols)
       preds_batch <- model_components()$learner$predict(task_batch)
       probs <- as.numeric(preds_batch$prob[, "Low"])
       

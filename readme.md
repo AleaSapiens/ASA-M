@@ -2,7 +2,7 @@
 
 ## Project Introduction
 
-The ASA-M system is an advanced machine learning-based tool designed specifically for patients with rheumatoid arthritis. It assesses the risk of developing low muscle mass by analyzing routinely available blood-based and clinical indicators. This application employs a CatBoost model trained on comprehensive blood and clinical data to provide accurate and interpretable predictions of low muscle mass risk.
+The ASA-M system is an advanced AI agent specifically designed for patients with rheumatoid arthritis. It assesses the risk of developing low muscle mass by analyzing routinely available blood-based and clinical indicators. This application employs a CatBoost model trained on comprehensive blood and clinical data to provide accurate and interpretable predictions of low muscle mass risk.
 
 ## Main Functions
 
@@ -15,50 +15,23 @@ The ASA-M system is an advanced machine learning-based tool designed specificall
 ## Machine Learning Model
 
 * **Algorithm:** CatBoost
-* **Features:** ALT, Age, BMI, Gender, Hemoglobin, White Blood Cell Count
-* **Performance:** AUC = 0.8001, Accuracy = 73.91%
+* **Features:** ANC, ALT, AST, Gender, Age, BMI
+* **Performance:** AUC = 0.8998, Accuracy = 81.52%
 * **Threshold Optimization:** Bootstrap Confidence Interval Based on Youden's J Statistic
-* **External Validation:** Validated using NHANES 2011-2018 data.
 
 ## Usage Instructions
-
-### 1. Patient Risk Assessment
-
-1. Enter the patient's clinical parameters in the input panel:
-    * ANC (U/L)
-    * Age (years)
-    * BMI (kg/m²)
-    * Gender (male or female)
-    * Hemoglobin (g/L)
-    * White Blood Cell Count (×10⁹/L)
-2. Click the **'Assess Risk'** button.
-3. View the risk assessment results in the output panel.
-
-### 2. Result Interpretation
-
-The system will provide:
-
-* **Risk Level:** Low Risk, Medium Risk, or High Risk.
-* **Probability of Muscle Mass Reduction:** A probability score ranging from 0-100%.
-* **Key Drivers:** The top 3 features influencing the prediction and their directions (positive/negative impact).
-* **Clinical Recommendations:** Management guidance tailored to the identified risk level.
-
-## Model Development
-
-### Feature Selection
-
-Based on clinical feasibility and predictive performance, a total of 6 features were finally selected:
-
-1. ALT (Alanine Aminotransferase)
-2. Age
-3. BMI (Body Mass Index)
-4. Gender
-5. Hemoglobin
-6. White Blood Cell Count
-
-### Model Selection
-
-* **Benchmark:** This study selected seven representative classifiers for benchmark testing: Neural Network (nnet), Categorical Boosting (CatBoost), Logistic Regression, Decision Tree, K-Nearest Neighbors (KNN), Naive Bayes, and LightGBM. The overall dataset was divided into a training set and a test set in a 7:3 ratio. Model evaluation and selection were conducted through a nested resampling process, employing 10-fold outer cross-validation and 10-fold inner cross-validation. Prior to model training, all data features were preprocessed using a standardization pipeline. For models requiring hyperparameter tuning, this study utilized an automated tuner for hyperparameter optimization. The optimization strategy was random search, with 10 parameter combinations evaluated per batch. The AUC (classif.auc) from the inner 10-fold cross-validation served as the performance evaluation metric, and the search was terminated after evaluating 100 parameter combinations.
+### 1. Single Patient Assessment
+Ideal for individual clinical assessments.
+* Input Parameters: Enter the patient's clinical data:Demographics: Gender (Male/Female), Age (years), BMI (kg/m²). Lab Values: ANC ($\times 10^{9}$/L), ALT (U/L), AST (U/L).
+* Assess: Click the "Assess Risk" button.
+* Interpret Results:View the Risk Level (Low/Intermediate/High) and probability score. Review the Key Drivers table to understand which specific features contributed most to the prediction (e.g., "AST ↑" indicates elevated AST increased the risk).
+### 2. Batch Assessment
+Process multiple patient records simultaneously using a CSV file.
+* Prepare Data:Download the CSV Template from the sidebar to ensure correct formatting. Your CSV file must contain the following columns: ANC, ALT, AST, Age, BMI, Gender. Optional: Include a Patient ID column for tracking.
+* Data Formatting:Gender: Use 1 for Male and 2 for Female (text inputs like "F", "Female" are also supported).Numeric Values: Ensure no missing values in clinical columns.
+* Upload & Analyze: Upload the file and check "Include Key Drivers" if detailed interpretability is needed.
+* Assess: Click the "Start Batch Prediction" button.
+* Export: View the summary dashboard and click "Download Results" to get the full prediction report.
 
 ## Clinical Application
 
@@ -72,8 +45,3 @@ Based on clinical feasibility and predictive performance, a total of 6 features 
 * This tool is for clinical research and screening purposes only.
 * It cannot replace a comprehensive medical assessment.
 * Results should be combined with clinical judgment.
-
-## Contact Information
-
-If you have any questions or suggestions, please contact us through the following ways:<br>
-email: <17200623640@163.com>
