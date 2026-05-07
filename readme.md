@@ -1,47 +1,62 @@
 # ASA-M: Augmented Synergy Advisor for RA Muscles
 
-## Project Introduction
+## Project Overview
+ASA-M is a clinical decision support tool designed to assess the risk of low muscle mass (LMM) in patients with rheumatoid arthritis (RA). The system integrates a CatBoost predictive model with the DeepSeek Large Language Model (LLM) to provide automated clinical interpretations based on patient-specific data and SHAP (SHapley Additive exPlanations) values.
 
-The ASA-M system is an advanced AI agent specifically designed for patients with rheumatoid arthritis. It assesses the risk of developing low muscle mass by analyzing routinely available blood-based and clinical indicators. This application employs a CatBoost model trained on comprehensive blood and clinical data to provide accurate and interpretable predictions of low muscle mass risk.
+## Core Features
+*   **Risk Prediction:** Accurate assessment of low muscle mass risk using clinical and laboratory indicators.
+*   **AI Clinical Assistant:** Powered by DeepSeek LLM for intelligent summarization and clinical insights.
+*   **Explainable AI:** Integration of SHAP to identify key drivers behind each prediction.
+*   **Dual Assessment Modes:** Supports individual patient entry and high-throughput batch processing via CSV.
 
-## Main Functions
+## Technical Specifications
+*   **Algorithm:** CatBoost
+*   **Interpretability:** SHAP Values
+*   **LLM Integration:** DeepSeek (API-based interpretation layer)
+*   **Input Features:** ANC, ALT, AST, Gender, Age, BMI
+*   **Performance Metrics:** 
+    *   AUC: 0.8998
+    *   Accuracy: 81.52%
 
-* **Personalized Risk Assessment:** Obtain personalized risk prediction by inputting 6 parameters.
-* **Interpretable Analysis:** Key driver analysis based on SHAP values.
-* **Multi-level Risk Classification:** Three-tier risk assessment (low, medium, high).
-* **Clinical Guidance:** Provide management recommendations based on risk level.
-* **User-friendly Interface:** Intuitive parameter input and result display.
-
-## Machine Learning Model
-
-* **Algorithm:** CatBoost
-* **Features:** ANC, ALT, AST, Gender, Age, BMI
-* **Performance:** AUC = 0.8998, Accuracy = 81.52%
-* **Threshold Optimization:** Bootstrap Confidence Interval Based on Youden's J Statistic
+### Risk Classification
+The system categorizes patients into three risk levels based on the predicted probability ($P$):
+1. Low Risk: $P < 0.313$
+2. Intermediate Risk: $0.313 <= P < 0.579$
+3. High Risk: $P >= 0.579$
 
 ## Usage Instructions
-### 1. Single Patient Assessment
-Ideal for individual clinical assessments.
-* Input Parameters: Enter the patient's clinical data:Demographics: Gender (Male/Female), Age (years), BMI (kg/m²). Lab Values: ANC ($\times 10^{9}$/L), ALT (U/L), AST (U/L).
-* Assess: Click the "Assess Risk" button.
-* Interpret Results:View the Risk Level (Low/Intermediate/High) and probability score. Review the Key Drivers table to understand which specific features contributed most to the prediction (e.g., "AST ↑" indicates elevated AST increased the risk).
-### 2. Batch Assessment
-Process multiple patient records simultaneously using a CSV file.
-* Prepare Data:Download the CSV Template from the sidebar to ensure correct formatting. Your CSV file must contain the following columns: ANC, ALT, AST, Age, BMI, Gender. Optional: Include a Patient ID column for tracking.
-* Data Formatting:Gender: Use 1 for Male and 2 for Female (text inputs like "F", "Female" are also supported).Numeric Values: Ensure no missing values in clinical columns.
-* Upload & Analyze: Upload the file and check "Include Key Drivers" if detailed interpretability is needed.
-* Assess: Click the "Start Batch Prediction" button.
-* Export: View the summary dashboard and click "Download Results" to get the full prediction report.
+### API Key Configuration
+The system integrates the DeepSeek LLM to generate clinical interpretations. Please configure your API key using one of the following methods:
+Recommended: Add DEEPSEEK_API_KEY="your_api_key_here" to your system environment variables. Run the following command in R to open your `.Renviron` file and securely store your API keys or environment constants:
+> ```R
+> usethis::edit_r_environ()
+> ```
+Manual: Open the script and replace the placeholder at the beginning of the generate_ai_interpretation and generate_batch_ai_interpretation functions: api_key <- "your_actual_key".
+
+### Model Files Deployment
+The prediction engine requires specific pre-trained components. Ensure a models/ directory exists in the project root with the following 5 essential serialized files:
+
+catboost_muscle_model.rds: The core CatBoost classification model.
+
+feature_cols.rds: Stores the required input feature names and their strict internal order (ANC, ALT, AST, Gender, Age, BMI).
+
+target_levels.rds: Defines the classification labels to ensure logic consistency.
+
+threshold_asset.rds: Contains the risk stratification thresholds calibrated with 95% confidence intervals.
+
+background_data.rds: A reference dataset sourced from the training cohort, used to calculate SHAP values.
+
+### Single Assessment
+1. Input Gender (Male/Female), Age (years), BMI (kg/m²), ANC ($\times 10^{9}$/L), ALT (U/L), AST (U/L).
+2. Click "Assess Risk" to generate a probability score and risk level (low, intermediate, high).
+3. Review the AI-generated interpretation for clinical context.
+
+### Batch Assessment
+1. Upload a CSV file (include ANC, ALT, AST, Gender, Age, BMI) following the provided template and click "Start Batch Prediction".
+2. Select "Include Key Drivers Analysis" for detailed SHAP-based analysis. Select "Include Descriptive Statistics" to add summary statistics to the output.
+3. Export results in a comprehensive summary table.
 
 ## Clinical Application
-
-### Target Population
-
-* Patients with rheumatoid arthritis.
-* Clinical research and screening scenarios.
-
-### Usage Restrictions
-
-* This tool is for clinical research and screening purposes only.
-* It cannot replace a comprehensive medical assessment.
-* Results should be combined with clinical judgment.
+*   **Target Population:** Patients with rheumatoid arthritis.
+*   **Intended Use:** Designed for clinical research and auxiliary screening.
+*   **Disclaimer:** This tool is not a replacement for professional clinical judgment or formal diagnostic procedures (such as DXA). Results should be interpreted by healthcare professionals.
